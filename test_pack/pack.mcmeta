@@ -1,0 +1,9 @@
+{
+  "pack": {
+    "pack_format": 55,
+    "description": "\u00A7a✦ Version 2.0\u00A7r\n✦ By maingvaldsen",
+	"supported_formats": {"min_inclusive": 55, "max_inclusive": 99},
+	"min_format": 55,
+	"max_format": 99
+  }
+}
