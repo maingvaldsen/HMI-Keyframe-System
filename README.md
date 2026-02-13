@@ -7,6 +7,7 @@ Please come with ideas if you have any (planning on making easings work, this is
 3. Do something with the value it returns
 
 ### Example usage
+_Dont copy the tween function from here, this is never gona be up to date. Get it from releases_
 ```lua
 local matrices = context.matrices
 local deltaTime = context.deltaTime
