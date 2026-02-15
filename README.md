@@ -41,7 +41,7 @@ if not debounce then
     })
 end
 ```
-This example would move first move the item with a inward back ease then over 1 second then move it over 2 seconds
+This example would first move the item with an inward back ease over 1 second then move it with no ease over 2 seconds
 
 
 
