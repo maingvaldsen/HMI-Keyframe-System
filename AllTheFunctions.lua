@@ -1,10 +1,36 @@
-local deltaTime = context.deltaTime
+---@class Vector3 Table containing x, y, z
+---@field x number
+---@field y number
+---@field z number
 
+---@class KeyframeTransform Table containing position, rotation, scale
+---@field position Vector3|nil
+---@field rotation Vector3|nil
+---@field scale Vector3|nil
+
+---@class Keyframe
+---@field startTime number
+---@field endTime number
+---@field fromIndex number|nil
+---@field toIndex number|nil
+---@field from KeyframeTransform
+---@field to KeyframeTransform
+---@field easing function|nil You have to wrap the easing in a fucntion (e.g. easing = function(t) return Easings:easeInBack(t) end)
+
+---@class KeyframeSequence : table<number, Keyframe>
+
+
+
+-- // |█| ===██===██===██===██===██===██=== |█| \\ --
+-- // |█|          Keyframe System          |█| \\ --
+-- // |█| ===██===██===██===██===██===██=== |█| \\ --
+
+
+
+-- // Requires these variables \\ --
+local deltaTime = context.deltaTime -- replace context with data if its for model part animations
 global.keyframeSequences = {};
 global.nextSequenceId = 0;
-global.debounce = false;
-
-
 
 ---Keyframe function for making animations without math.                                                        
 ----- // ✦ Made by maingvaldsen ✦ \\ --
@@ -93,30 +119,34 @@ for id, data in pairs(keyframeSequences) do
     end
 end
 
-if not debounce then
-    debounce = true
 
-    playKeyframeSequence({
-        {
-            startTime = 1,
-            endTime = 2,
-            from = {
-                position = {x = 0, y = 0, z = 0},
-            },
-            to = {
-                position = {x = -0.3, y = 0, z = -0.1},
-            },
-            easing = function(t) return Easings:easeInBack(t) end
-        },
-        {
-            startTime = 2,
-            endTime = 4,
-            from = {
-                position = {x = -0.3, y = 0, z = -0.1},
-            },
-            to = {
-                position = {x = -0.7, y = 1, z = -0.78},
-            },
-        },
-    })
+
+-- // |█| ===██===██===██====██===██===██=== |█| \\ --
+-- // |█|       Quadratic Beziér curve       |█| \\ --
+-- // |█| ===██===██===██====██===██===██=== |█| \\ --
+
+
+
+---3D Quadratic Beziér curve                                                                                    
+---Depends on the vector3Lerp function
+---@param p0 Vector3 table containing p0 (e.g. {x = 1, y = 2, z = 1})
+---@param p1 Vector3 table containing p1 (e.g. {x = 1, y = 2, z = 1})
+---@param p2 Vector3 table containing p2 (e.g. {x = 1, y = 2, z = 1})
+---@param time number the point in the curve from 0 - 1
+---@return number x the X position of the point in the curve
+---@return number y the Y position of the point in the curve
+---@return number z the Z position of the point in the curve
+local function quadraticBezier(p0, p1, p2, time)
+    local function vector3Lerp(a, b, t)
+        return {
+            x = M:lerp(t, a.x, b.x),
+            y = M:lerp(t, a.y, b.y),
+            z = M:lerp(t, a.z, b.z),
+        }
+    end
+
+    local a = vector3Lerp(p0, p1, time)
+    local b = vector3Lerp(p1, p2, time)
+    local c = vector3Lerp(a, b, time)
+    return c.x, c.y, c.z
 end
