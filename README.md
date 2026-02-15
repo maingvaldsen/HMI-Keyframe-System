@@ -1,5 +1,5 @@
 # A not completley scuffed keyframe system for hmi
-Please come with ideas if you have any (planning on making easings work, this is just a quick concept for now)
+Please come with ideas if you have any
 
 ## How to use
 1. Copy the Keyframe code from AllTheFunctions.lua and paste it somewhere in your code
