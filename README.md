@@ -1,9 +1,13 @@
-# How to use
+# A very scuffed keyframe system for hmi
+Please come with ideas if you have any (planning on making easings work, this is just a quick concept for now)
+
+## How to use
 1. Copy the tween code from TweenFunction.lua and paste it somewhere in your code
 2. Call the tween function and pass a unique id for that tween, the amount you want to move it and how long it should take
 3. Do something with the value it returns
 
-## Example usage
+### Example usage
+_Dont copy the tween function from here, this is never gona be up to date. Get it from releases_
 ```lua
 local matrices = context.matrices
 local deltaTime = context.deltaTime
