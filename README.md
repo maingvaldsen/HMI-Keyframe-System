@@ -1,4 +1,4 @@
-# A very scuffed keyframe system for hmi
+# A not completley scuffed keyframe system for hmi
 Please come with ideas if you have any (planning on making easings work, this is just a quick concept for now)
 
 ## How to use
