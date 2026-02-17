@@ -3,7 +3,8 @@ Please come with ideas if you have any
 
 ## How to use
 1. Copy the Keyframe code from AllTheFunctions.lua and paste it somewhere in your code
-2. Call the Keyframe function once and pass a table containing your keyframe sequence (see the classes for structure)
+2. Call the Keyframe function and capture the id it returns once and pass a table containing your keyframe sequence (see the classes for structure)
+3. Call the updating function every frame or whenever you want to advance the animation and pass the id and / or your own time point betwean 0 and the last end point of the animation
 
 ### Example usage
 ```lua
@@ -12,11 +13,12 @@ local deltaTime = context.deltaTime
 global.keyframeSequences = {};
 global.nextSequenceId = 0;
 global.debounce = false;
+global.id = nil;
 
 if not debounce then
     debounce = true
 
-    playKeyframeSequence({
+    id = playKeyframeSequence({
         {
             startTime = 1,
             endTime = 2,
@@ -39,6 +41,10 @@ if not debounce then
             },
         },
     })
+end
+
+if id then
+    advanceSequence(id, 3)
 end
 ```
 This example would first move the item with a back ease in the in direction over 1 second then move it with no ease over 2 seconds
