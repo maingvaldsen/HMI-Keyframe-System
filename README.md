@@ -1,5 +1,5 @@
 # A not completley scuffed keyframe system for hmi
-Please come with ideas if you have any (planning on making easings work, this is just a quick concept for now)
+Please come with ideas if you have any
 
 ## How to use
 1. Copy the Keyframe code from AllTheFunctions.lua and paste it somewhere in your code
@@ -41,7 +41,7 @@ if not debounce then
     })
 end
 ```
-This example would first move the item with an inward back ease over 1 second then move it with no ease over 2 seconds
+This example would first move the item with a back ease in the in direction over 1 second then move it with no ease over 2 seconds
 
 
 
