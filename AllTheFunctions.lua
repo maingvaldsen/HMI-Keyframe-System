@@ -35,6 +35,7 @@ global.nextSequenceId = 0;
 ---Keyframe function for making animations without math.                                                        
 ----- // ✦ Made by maingvaldsen ✦ \\ --
 ---@param sequence KeyframeSequence
+---@return number id The id of the sequence
 local function playKeyframeSequence(sequence)
     local id = nextSequenceId
     nextSequenceId = id + 1
@@ -42,8 +43,9 @@ local function playKeyframeSequence(sequence)
     keyframeSequences[id] = {
         clock = 0,
         sequence = sequence,
-        finished = false,
     }
+
+    return id
 end
 local function evaluateSequence(sequence, time)
     for _, key in ipairs(sequence) do
@@ -85,37 +87,34 @@ local function evaluateSequence(sequence, time)
 
     return nil
 end
-for id, data in pairs(keyframeSequences) do
-    if not data.finished then
-        data.clock = data.clock + deltaTime
+---@param id number the id of the sequence you want to advance
+---@param time number|nil optional point in the sequence if you want to control it yourself
+local function advanceSequence(id, time)
+    local data = keyframeSequences[id]
+    data.clock = time or data.clock + deltaTime
 
-        local result = evaluateSequence(data.sequence, data.clock)
+    local result = evaluateSequence(data.sequence, data.clock)
 
-        if result then
-            if result.fromIndex and result.toIndex then
-                animator:moveX(result.fromIndex, result.toIndex, result.position.x)
-                animator:moveY(result.fromIndex, result.toIndex, result.position.y)
-                animator:moveZ(result.fromIndex, result.toIndex, result.position.z)
+    if result then
+        if result.fromIndex and result.toIndex then
+            animator:moveX(result.fromIndex, result.toIndex, result.position.x)
+            animator:moveY(result.fromIndex, result.toIndex, result.position.y)
+            animator:moveZ(result.fromIndex, result.toIndex, result.position.z)
 
-                animator:rotateX(result.fromIndex, result.toIndex, result.rotation.x)
-                animator:rotateY(result.fromIndex, result.toIndex, result.rotation.y)
-                animator:rotateZ(result.fromIndex, result.toIndex, result.rotation.z)
+            animator:rotateX(result.fromIndex, result.toIndex, result.rotation.x)
+            animator:rotateY(result.fromIndex, result.toIndex, result.rotation.y)
+            animator:rotateZ(result.fromIndex, result.toIndex, result.rotation.z)
 
-                animator:scale(result.fromIndex, result.toIndex, result.scale.x, result.scale.y, result.scale.z)
-            else
-                M:translate(context.matrices, result.position.x, result.position.y, result.position.z)
+            animator:scale(result.fromIndex, result.toIndex, result.scale.x, result.scale.y, result.scale.z)
+        else
+            M:translate(context.matrices, result.position.x, result.position.y, result.position.z)
 
-                M:rotateX(context.matrices, result.rotation.x)
-                M:rotateY(context.matrices, result.rotation.y)
-                M:rotateZ(context.matrices, result.rotation.z)
+            M:rotateX(context.matrices, result.rotation.x)
+            M:rotateY(context.matrices, result.rotation.y)
+            M:rotateZ(context.matrices, result.rotation.z)
 
-                M:scale(context.matrices, result.scale.x, result.scale.y, result.scale.z)
-            end
-        elseif data.clock > data.sequence[#data.sequence].endTime then
-            data.finished = true
+            M:scale(context.matrices, result.scale.x, result.scale.y, result.scale.z)
         end
-    else
-        keyframeSequences[id] = nil
     end
 end
 
