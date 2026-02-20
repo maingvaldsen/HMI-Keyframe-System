@@ -11,10 +11,10 @@
 ---@class Keyframe
 ---@field startTime number
 ---@field endTime number
----@field fromIndex number|nil
----@field toIndex number|nil
 ---@field from KeyframeTransform
 ---@field to KeyframeTransform
+---@field fromIndex number|nil
+---@field toIndex number|nil
 ---@field easing function|nil You have to wrap the easing in a fucntion (e.g. easing = function(t) return Easings:easeInBack(t) end)
 
 ---@class KeyframeSequence : table<number, Keyframe>
@@ -36,7 +36,7 @@ global.nextSequenceId = 0;
 ----- // ✦ Made by maingvaldsen ✦ \\ --
 ---@param sequence KeyframeSequence
 ---@return number id The id of the sequence
-local function playKeyframeSequence(sequence)
+local function defineKeyframeSequence(sequence)
     local id = nextSequenceId
     nextSequenceId = id + 1
 
@@ -147,5 +147,5 @@ local function quadraticBezier(p0, p1, p2, time)
     local a = vector3Lerp(p0, p1, time)
     local b = vector3Lerp(p1, p2, time)
     local c = vector3Lerp(a, b, time)
-    return c.x, c.y, c.z
+    return c.x, c.y, c.z -- Replace with just c if you want it as a table
 end

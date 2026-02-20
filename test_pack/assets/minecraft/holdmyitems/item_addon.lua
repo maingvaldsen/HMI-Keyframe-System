@@ -11,7 +11,7 @@ global.id = nil;
 ----- // ✦ Made by maingvaldsen ✦ \\ --
 ---@param sequence KeyframeSequence
 ---@return number id The id of the sequence
-local function playKeyframeSequence(sequence)
+local function defineKeyframeSequence(sequence)
     local id = nextSequenceId
     nextSequenceId = id + 1
 
@@ -93,10 +93,8 @@ local function advanceSequence(id, time)
     end
 end
 
-if not debounce then
-    debounce = true
-
-    id = playKeyframeSequence({
+if not id then
+    id = defineKeyframeSequence({
         {
             startTime = 1,
             endTime = 2,
