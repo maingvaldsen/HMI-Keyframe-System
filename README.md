@@ -44,7 +44,8 @@ if not debounce then
 end
 
 if id then
-    advanceSequence(id, 3)
+    advanceSequence(id) -- Calling this every frame will advance the animation at the rate it was made
+-- You can however pass your own point in the animation as the second parameter if you want to control the animation
 end
 ```
 This example would first move the item with a back ease in the in direction over 1 second then move it with no ease over 2 seconds
