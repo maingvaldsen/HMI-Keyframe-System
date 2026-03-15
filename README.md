@@ -18,7 +18,7 @@ global.id = nil;
 if not debounce then
     debounce = true
 
-    id = playKeyframeSequence({
+    id = defineKeyframeSequence({
         {
             startTime = 1,
             endTime = 2,
