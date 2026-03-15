@@ -1,9 +1,7 @@
 local deltaTime = context.deltaTime
 
 global.keyframeSequences = {};
-global.nextSequenceId = 1;
 global.debounce = false;
-global.id = nil;
 
 
 
@@ -11,16 +9,11 @@ global.id = nil;
 ----- // ✦ Made by maingvaldsen ✦ \\ --
 ---@param sequence KeyframeSequence
 ---@return number id The id of the sequence
-local function defineKeyframeSequence(sequence)
-    local id = nextSequenceId
-    nextSequenceId = id + 1
-
+local function defineKeyframeSequence(id, sequence)
     keyframeSequences[id] = {
         clock = 0,
         sequence = sequence,
     }
-
-    return id
 end
 local function evaluateSequence(sequence, time)
     for _, key in ipairs(sequence) do
@@ -93,32 +86,28 @@ local function advanceSequence(id, time)
     end
 end
 
-if not id then
-    id = defineKeyframeSequence({
-        {
-            startTime = 1,
-            endTime = 2,
-            from = {
-                position = {x = 0, y = 0, z = 0},
-            },
-            to = {
-                position = {x = -0.3, y = 0, z = -0.1},
-            },
-            easing = function(t) return Easings:easeInBack(t) end
+defineKeyframeSequence(1, {
+    {
+        startTime = 1,
+        endTime = 2,
+        from = {
+            position = {x = 0, y = 0, z = 0},
         },
-        {
-            startTime = 2,
-            endTime = 4,
-            from = {
-                position = {x = -0.3, y = 0, z = -0.1},
-            },
-            to = {
-                position = {x = -0.7, y = 1, z = -0.78},
-            },
+        to = {
+            position = {x = -0.3, y = 0, z = -0.1},
         },
-    })
-end
+        easing = function(t) return Easings:easeInBack(t) end
+    },
+    {
+        startTime = 2,
+        endTime = 4,
+        from = {
+            position = {x = -0.3, y = 0, z = -0.1},
+        },
+        to = {
+            position = {x = -0.7, y = 1, z = -0.78},
+        },
+    },
+})
 
-if id then
-    advanceSequence(id, 3)
-end
+advanceSequence(1, 3)

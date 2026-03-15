@@ -30,22 +30,16 @@
 -- // Requires these variables \\ --
 local deltaTime = context.deltaTime -- replace context with data if its for model part animations
 global.keyframeSequences = {};
-global.nextSequenceId = 0;
 
 ---Keyframe function for making animations without math.                                                        
 ----- // ✦ Made by maingvaldsen ✦ \\ --
 ---@param sequence KeyframeSequence
 ---@return number id The id of the sequence
-local function defineKeyframeSequence(sequence)
-    local id = nextSequenceId
-    nextSequenceId = id + 1
-
+local function defineKeyframeSequence(id, sequence)
     keyframeSequences[id] = {
         clock = 0,
         sequence = sequence,
     }
-
-    return id
 end
 local function evaluateSequence(sequence, time)
     for _, key in ipairs(sequence) do
