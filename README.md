@@ -11,42 +11,34 @@ Please come with ideas if you have any
 local deltaTime = context.deltaTime
 
 global.keyframeSequences = {};
-global.nextSequenceId = 0;
 global.debounce = false;
-global.id = nil;
 
-if not debounce then
-    debounce = true
-
-    id = defineKeyframeSequence({
-        {
-            startTime = 1,
-            endTime = 2,
-            from = {
-                position = {x = 0, y = 0, z = 0},
-            },
-            to = {
-                position = {x = -0.3, y = 0, z = -0.1},
-            },
-            easing = function(t) return Easings:easeInBack(t) end
+defineKeyframeSequence(1, {
+    {
+        startTime = 1,
+        endTime = 2,
+        from = {
+            position = {x = 0, y = 0, z = 0},
         },
-        {
-            startTime = 2,
-            endTime = 4,
-            from = {
-                position = {x = -0.3, y = 0, z = -0.1},
-            },
-            to = {
-                position = {x = -0.7, y = 1, z = -0.78},
-            },
+        to = {
+            position = {x = -0.3, y = 0, z = -0.1},
         },
-    })
-end
+        easing = function(t) return Easings:easeInBack(t) end
+    },
+    {
+        startTime = 2,
+        endTime = 4,
+        from = {
+            position = {x = -0.3, y = 0, z = -0.1},
+        },
+        to = {
+            position = {x = -0.7, y = 1, z = -0.78},
+        },
+    },
+})
 
-if id then
-    advanceSequence(id) -- Calling this every frame will advance the animation at the rate it was made
-    -- You can however pass your own point in the animation as the second parameter if you want to control the animation
-end
+advanceSequence(1) -- Calling this every frame will advance the animation at the rate it was made
+                    -- You can also pass your own point in the animation as the second parameter if you want to control the animation
 ```
 This example would first move the item with a back ease in the in direction over 1 second then move it with no ease over 2 seconds
 
