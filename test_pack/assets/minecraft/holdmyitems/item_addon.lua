@@ -7,8 +7,8 @@ global.debounce = false;
 
 ---Keyframe function for making animations without math.                                                        
 ----- // ✦ Made by maingvaldsen ✦ \\ --
+---@param id number Id for the animation
 ---@param sequence KeyframeSequence
----@return number id The id of the sequence
 local function defineKeyframeSequence(id, sequence)
     keyframeSequences[id] = {
         clock = 0,
