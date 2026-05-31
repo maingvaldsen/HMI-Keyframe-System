@@ -55,6 +55,8 @@ local function evaluateSequence(sequence, time)
                 position = {x = 0, y = 0, z = 0},
                 rotation = {x = 0, y = 0, z = 0},
                 scale = {x = 1, y = 1, z = 1},
+                fromIndex = key.fromIndex,
+                toIndex = key.toIndex,
             }
 
             if key.from.position and key.to.position then
@@ -73,11 +75,6 @@ local function evaluateSequence(sequence, time)
                 tempResult.scale.x = M:lerp(t, key.from.scale.x, key.to.scale.x)
                 tempResult.scale.y = M:lerp(t, key.from.scale.y, key.to.scale.y)
                 tempResult.scale.z = M:lerp(t, key.from.scale.z, key.to.scale.z)
-            end
-            
-            if key.fromIndex and key.toIndex then
-                tempResult[fromIndex] = key.fromIndex
-                tempResult[toIndex] = key.toIndex
             end
 
             return tempResult
