@@ -74,6 +74,11 @@ local function evaluateSequence(sequence, time)
                 tempResult.scale.y = M:lerp(t, key.from.scale.y, key.to.scale.y)
                 tempResult.scale.z = M:lerp(t, key.from.scale.z, key.to.scale.z)
             end
+            
+            if key.fromIndex and key.toIndex then
+                tempResult[fromIndex] = key.fromIndex
+                tempResult[toIndex] = key.toIndex
+            end
 
             return tempResult
         end
