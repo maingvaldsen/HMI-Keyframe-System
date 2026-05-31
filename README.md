@@ -3,7 +3,7 @@ Please come with ideas if you have any
 
 ## How to use
 1. Copy the Keyframe code from AllTheFunctions.lua and paste it somewhere in your code
-2. Call the Keyframe function and capture the id it returns once and pass a table containing your keyframe sequence (see the classes for structure)
+2. Call the Keyframe function passing the id and a table containing your keyframe sequence (see the classes for structure)
 3. Call the updating function every frame or whenever you want to advance the animation and pass the id and / or your own time point betwean 0 and the last end point of the animation
 
 ### Example usage
